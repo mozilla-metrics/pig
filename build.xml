@@ -477,9 +477,9 @@
         </javadoc>
     </target>
     <!-- ================================================================== -->
-    <!-- @depricated, Documentation                                         -->
+    <!-- @deprecated, Documentation                                         -->
     <!-- ================================================================== -->
-    <target name="docs" depends="forrest.check, javadoc-all" description="Generate forrest-based documentation. 
+    <target name="docs" depends="forrest.check, javadoc" description="Generate forrest-based documentation. 
 		To use, specify -Dforrest.home=&lt;base of Apache Forrest installation&gt; on the command line." if="forrest.home">
     	<exec dir="${docs.dir}" executable="${forrest.home}/bin/forrest" failonerror="true">
     	</exec>
@@ -1381,7 +1381,7 @@
         </clover-report>
      </target>
 
-     <target name="api-xml" depends="ivy-jdiff, javadoc-all, write-null">
+     <target name="api-xml" depends="ivy-jdiff, javadoc, write-null">
         <javadoc>
                 <doclet name="jdiff.JDiff"
                         path="${jdiff.jar}:${xerces.jar}">

@@ -152,6 +152,10 @@ done
 #    done
 #fi
 
+if [ -z "$HADOOP_HOME" ]; then
+    HADOOP_HOME=/usr/lib/hadoop
+fi
+
 if [ -n "$HADOOP_PREFIX" ]; then
     if [ -f $HADOOP_PREFIX/bin/hadoop ]; then
         HADOOP_BIN=$HADOOP_PREFIX/bin/hadoop
@@ -171,26 +175,34 @@ if [ -n "$HADOOP_BIN" ]; then
     fi
 fi
 
+if [ -z "$HBASE_HOME" ]; then
+    HBASE_HOME=/usr/lib/hbase
+fi
+
+if [ -z "$ZOOKEEPER_HOME" ]; then
+    ZOOKEEPER_HOME=/usr/lib/zookeeper
+fi
+
 # if using HBase, likely want to include HBase config
 HBASE_CONF_DIR=${HBASE_CONF_DIR:-/etc/hbase}
 if [ -n "$HBASE_CONF_DIR" ] && [ -d "$HBASE_CONF_DIR" ]; then
     CLASSPATH=$HBASE_CONF_DIR:$CLASSPATH
 fi
 
-if [ -d "${PIG_HOME}/etc/hadoop" ]; then
-    CLASSPATH=${CLASSPATH}:${PIG_HOME}/etc/hadoop;
+if [ -d "/etc/hadoop" ]; then
+    CLASSPATH=${CLASSPATH}:/etc/hadoop;
 fi
 
 # locate ZooKeeper
-if [ -d "${PIG_HOME}/share/zookeeper" ]; then
-    for f in ${PIG_HOME}/share/zookeeper/zookeeper-*.jar; do
+if [ -d "${ZOOKEEPER_HOME}" ]; then
+    for f in ${ZOOKEEPER_HOME}/zookeeper-*.jar; do
         CLASSPATH=${CLASSPATH}:$f
     done
 fi
 
 # locate HBase
-if [ -d "${PIG_HOME}/share/hbase" ]; then
-    for f in ${PIG_HOME}/share/hbase/hbase-*.jar; do
+if [ -d "${HBASE_HOME}" ]; then
+    for f in ${HBASE_HOME}/hbase-*.jar; do
         CLASSPATH=${CLASSPATH}:$f
     done
 fi

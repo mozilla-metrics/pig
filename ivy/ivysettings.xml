@@ -32,6 +32,7 @@
   <property name="repo.maven.org" value="${mvnrepo}" override="true"/>
   <property name="repo.jboss.org" value="http://repository.jboss.com/nexus/content/groups/public/" override="false"/>
   <property name="repo.apache.snapshots" value="http://repository.apache.org/content/groups/snapshots-group/" override="false"/>
+  <property name="repo.cloudera" value="https://repository.cloudera.com/content/repositories/releases" override="false"/>
   <property name="repo.dir" value="${user.home}/.m2/repository"/>
   <property name="maven2.pattern"  value="[organisation]/[module]/[revision]/[module]-[revision](-[classifier])"/> 
   <property name="maven2.pattern.ext" value="${maven2.pattern}.[ext]"/>
@@ -45,6 +46,7 @@
     <ibiblio name="maven2" root="${repo.maven.org}" pattern="${maven2.pattern.ext}" m2compatible="true"/>
     <ibiblio name="jboss-maven2" root="${repo.jboss.org}" pattern="${maven2.pattern.ext}" m2compatible="true"/>
     <ibiblio name="apache-snapshots" root="${repo.apache.snapshots}" pattern="${snapshot.pattern}" checkmodified="true" m2compatible="true"/>
+	<ibiblio name="cloudera" root="${repo.cloudera}" pattern="${maven2.pattern.ext}" m2compatible="true"/>
     <filesystem name="fs" m2compatible="true" checkconsistency="false" force="${force-resolve}">
        <artifact pattern="${repo.dir}/${maven2.pattern.ext}"/>
        <ivy pattern="${repo.dir}/[organisation]/[module]/[revision]/[module]-[revision].pom"/>
@@ -53,6 +55,7 @@
       <resolver ref="local"/>
       <resolver ref="maven2"/>
       <resolver ref="jboss-maven2"/>
+	  <resolver ref="cloudera"/>
       <resolver ref="apache-snapshots"/>
     </chain>
     <chain name="internal">
